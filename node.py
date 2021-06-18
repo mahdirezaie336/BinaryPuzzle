@@ -29,6 +29,16 @@ class Node:
             Makes the node arc consistent with respect to all possible nodes. """
         pass
 
+    def apply_mask_filter(self, mask):
+        """ Applies a filter by given mask on possible cells. """
+        to_delete = []
+        for cell in self.__possible_cells:
+            if cell.fits_on_mask(mask):
+                to_delete.append(cell)
+
+        for cell in to_delete:
+            self.__possible_cells.remove(cell)
+
     def __eq__(self, other):
         if not isinstance(other, Node):
             return False
