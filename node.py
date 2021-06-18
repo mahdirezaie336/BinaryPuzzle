@@ -3,13 +3,15 @@ from cell import Cell
 
 class Node:
 
-    str_len = 4
     __arcs: list
 
-    def __init__(self, identity):
+    def __init__(self, identity, cell_length):
         self.__arcs = []
         self.__id = identity
         self.__possible_cells = []
+        self.__cell_length = cell_length
+
+        self.init_possible_cells()
 
     def make_arc_consistent_to(self, node):
         """ Makes this node arc consistent with respect to another node. """
@@ -17,8 +19,8 @@ class Node:
 
     def init_possible_cells(self):
         """ Initializes all possible cells. """
-        for i in range(Node.str_len):
-            self.__possible_cells.append(Cell('{:b}'.format(i).zfill(Node.str_len)))
+        for i in range(self.__cell_length):
+            self.__possible_cells.append(Cell('{:b}'.format(i).zfill(self.__cell_length)))
 
     def apply_unary_constraint(self, const):
         """ Applies a unary constraint to all possible sets. """
