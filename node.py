@@ -49,6 +49,9 @@ class Node:
         for cell in to_delete:
             self.__possible_cells.remove(cell)
 
+    def get_possible_cells(self):
+        return self.__possible_cells
+
     def __eq__(self, other):
         if not isinstance(other, Node):
             return False
