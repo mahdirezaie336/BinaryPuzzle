@@ -1,17 +1,20 @@
+from constraint import BinaryConstraint
+
+
 class Arc:
 
-    def __init__(self, head, tail, const):
+    def __init__(self, head, tail, const: BinaryConstraint):
         self.__head = head
         self.__tail = tail
         self.__cons = const
 
-    def make_me_consistent(self, node):
+    def make_me_consistent(self, me_node):
         """ Makes head or tail arc consistent with respect to the other. """
-        if node == self.__head:
-            node.make_arc_consistent_to(self.__tail)
-        elif node == self.__tail:
-            node.make_arc_consistent_to(self.__head)
-        pass
+        if me_node == self.__head:
+            other_node = self.__tail
+        elif me_node == self.__tail:
+            other_node = self.__head
+
 
     def get_other_side(self, node):
         """ Returns the others side node. """

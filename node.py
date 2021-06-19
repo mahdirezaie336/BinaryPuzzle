@@ -1,4 +1,5 @@
 from cell import Cell
+from constraint import UnaryConstraint
 
 
 class Node:
@@ -22,13 +23,20 @@ class Node:
         for i in range(self.__cell_length):
             self.__possible_cells.append(Cell('{:b}'.format(i).zfill(self.__cell_length)))
 
-    def apply_unary_constraint(self, const):
-        """ Applies a unary constraint to all possible sets. """
-        pass
+    def apply_unary_constraint(self, const: UnaryConstraint):
+        """ Removes cells which do not satisfy the unary constraint from possible cells. """
+        to_remove = []
+        for cell in self.__possible_cells:
+            if not const.satisfies(cell):
+                to_remove.append(cell)
+
+        for cell in to_remove:
+            self.__possible_cells.remove(cell)
 
     def apply_binary_constraint(self, const):
         """ Applies a binary constraint to all possible values.
             Makes the node arc consistent with respect to all possible nodes. """
+
         pass
 
     def apply_mask_filter(self, mask):
