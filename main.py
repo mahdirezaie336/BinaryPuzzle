@@ -1,5 +1,5 @@
 from constants import Consts
-from node import Node
+from graph import Node
 
 
 def read_map():
