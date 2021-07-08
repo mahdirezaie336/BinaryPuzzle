@@ -14,9 +14,10 @@ class Node:
 
         self.init_possible_cells()
 
-    def make_arc_consistent_to(self, node):
+    def make_arc_consistent_to_all(self):
         """ Makes this node arc consistent with respect to another node. """
-        pass
+        for arc in self.__arcs:
+            other_side = arc.make_me_consistent(self)
 
     def init_possible_cells(self):
         """ Initializes all possible cells. """
@@ -85,8 +86,11 @@ class Arc:
             if not found:
                 to_remove.append(cell)
 
+        for cell in to_remove:
+            cells.remove(cell)
+
     def get_other_side(self, node):
-        """ Returns the others side node. """
+        """ Returns the node on others side of arc. """
         if node == self.__head:
             return self.__tail
         if node == self.__tail:
