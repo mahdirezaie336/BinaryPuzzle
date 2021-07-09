@@ -15,9 +15,9 @@ class Node:
         self.init_possible_cells()
 
     def make_arc_consistent_to_all(self):
-        """ Makes this node arc consistent with respect to another node. """
+        """ Makes this node arc consistent with respect to all adjacent nodes. """
         for arc in self.__arcs:
-            other_side = arc.make_me_consistent(self)
+            arc.make_me_consistent(self)
 
     def init_possible_cells(self):
         """ Initializes all possible cells. """
