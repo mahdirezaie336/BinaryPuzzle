@@ -57,6 +57,9 @@ class Node:
     def get_possible_cells(self):
         return self.__possible_cells
 
+    def get_id(self):
+        return self.__id
+
     def __eq__(self, other):
         if not isinstance(other, Node):
             return False
@@ -90,7 +93,7 @@ class Arc:
         for cell in cells:
             found = False
             for other_cell in other_node.get_possible_cells():
-                if self.__cons.satisfies(cell, other_cell):
+                if self.__cons.satisfies(cell, other_cell, me_node, other_node):
                     found = True
                     break
             if not found:

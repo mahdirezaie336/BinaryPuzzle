@@ -3,7 +3,7 @@ from constraint import UnaryConstraint, BinaryConstraint
 from graph import Node, Arc
 
 
-def two_diff(cell1, cell2):
+def two_diff(cell1, cell2, _):
     return cell1 != cell2
 
 
@@ -24,6 +24,14 @@ def more_than_two_digits(cell):
         if count == 2:
             return False
     return True
+
+
+def same_row_and_column(cell1, cell2, node1, node2):
+    """ A binary constraint function that checks whether a row and a column can be
+        in a table or no."""
+    i = node1.get_id()[1]
+    j = node2.get_id()[1]
+    return cell1[j] == cell2[i]
 
 
 def read_map():
