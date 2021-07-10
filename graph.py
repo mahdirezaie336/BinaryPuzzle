@@ -6,13 +6,17 @@ class Node:
 
     __arcs: list
 
-    def __init__(self, identity, cell_length):
+    def __init__(self, identity: tuple[str, int], cell_length):
         self.__arcs = []
         self.__id = identity
         self.__possible_cells = []
         self.__cell_length = cell_length
 
         self.init_possible_cells()
+
+    def connect_to_another_node(self, other: 'Node', arc):
+        self.__arcs.append(arc)
+        other.__arcs.append(arc)
 
     def make_arc_consistent_to_all(self):
         """ Makes this node arc consistent with respect to all adjacent nodes. """
@@ -61,6 +65,12 @@ class Node:
     def __hash__(self):
         return hash(self.__id)
 
+    def __str__(self):
+        return str(self.__id)
+
+    def __repr__(self):
+        return str(self.__id)
+
 
 class Arc:
 
@@ -101,3 +111,5 @@ class Arc:
         """ Returns the constraint function. """
         return self.__cons
 
+    def __str__(self):
+        return str(self.__head) + ' -> ' + str(self.__tail)

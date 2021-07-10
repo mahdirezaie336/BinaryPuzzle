@@ -1,5 +1,6 @@
 from constants import Consts
-from graph import Node
+from constraint import UnaryConstraint, BinaryConstraint
+from graph import Node, Arc
 
 
 def two_diff(cell1, cell2):
@@ -53,7 +54,22 @@ def read_map():
             node.apply_mask_filter(mask)
             vertical_nodes.append(node)
 
-        #
+        two_diff_constraint = BinaryConstraint(two_diff)
+        # Connect each vertical node to the other
+        for i in range(len(vertical_nodes)):
+            for j in range(i+1, len(vertical_nodes)):
+                node1 = vertical_nodes[i]
+                node2 = vertical_nodes[j]
+                arc = Arc(node1, node2, two_diff_constraint)
+                node1.connect_to_another_node(node2, arc)
+
+        # Connect each horizontal node to the other
+        for i in range(len(horizontal_nodes)):
+            for j in range(i + 1, len(horizontal_nodes)):
+                node1 = horizontal_nodes[i]
+                node2 = horizontal_nodes[j]
+                arc = Arc(node1, node2, two_diff_constraint)
+                node1.connect_to_another_node(node2, arc)
 
 
 def main():
