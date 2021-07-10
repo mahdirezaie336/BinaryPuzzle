@@ -14,6 +14,9 @@ class Cell:
     def __str__(self):
         return self.__value
 
+    def __repr__(self):
+        return self.__value
+
     def fits_on_mask(self, mask: str):
         """ Checks a mask with this object. A mask fits on this if .... """
         if len(mask) != len(self.__value):

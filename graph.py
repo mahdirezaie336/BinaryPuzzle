@@ -25,7 +25,7 @@ class Node:
 
     def init_possible_cells(self):
         """ Initializes all possible cells. """
-        for i in range(self.__cell_length):
+        for i in range(2 ** self.__cell_length):
             self.__possible_cells.append(Cell('{:b}'.format(i).zfill(self.__cell_length)))
 
     def apply_unary_constraint(self, const: UnaryConstraint):
@@ -48,7 +48,7 @@ class Node:
         """ Applies a filter by given mask on possible cells. """
         to_delete = []
         for cell in self.__possible_cells:
-            if cell.fits_on_mask(mask):
+            if not cell.fits_on_mask(mask):
                 to_delete.append(cell)
 
         for cell in to_delete:
