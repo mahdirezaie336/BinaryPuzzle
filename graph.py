@@ -61,7 +61,9 @@ class Node:
         self.__possible_cells = cells
 
     def undo_applying_binary_constraint(self):
-        self.__possible_cells = self.__cells_stack.pop()
+        """ Brings back last possible cells list. """
+        if len(self.__cells_stack) > 0:
+            self.__possible_cells = self.__cells_stack.pop()
 
     def apply_mask_filter(self, mask):
         """ Applies a filter by given mask on possible cells. """
