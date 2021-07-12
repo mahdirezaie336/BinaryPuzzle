@@ -114,17 +114,19 @@ def forward_check(node: Node):
 
 def backtrack_search(all_nodes: list[Node]):
     """ Performs a backtrack search on list of nodes which is sorted. """
+    if len(all_nodes) <= 0:
+        return 0
     root = all_nodes.pop()
     if len(root.get_possible_cells()) == 0:
-        raise Exception('Problem is unsolvable')
+        return -1
     for cell in root.get_possible_cells():
         root.set_value(cell)
         forward_check(root)
         heapq.heapify(all_nodes)
         res = backtrack_search(all_nodes.copy())
-
-
-    pass
+        if res == 0:
+            return 0
+    return -1
 
 
 def main():
@@ -142,6 +144,7 @@ def main():
         node.apply_unary_constraint(more_ttd_constraint)
 
     heapq.heapify(all_nodes)
+    backtrack_search(all_nodes)
     pass
 
 

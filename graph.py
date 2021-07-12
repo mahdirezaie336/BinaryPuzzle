@@ -64,6 +64,8 @@ class Node:
         """ Brings back last possible cells list. """
         if len(self.__cells_stack) > 0:
             self.__possible_cells = self.__cells_stack.pop()
+        if self.__has_value:
+            self.__has_value = False
 
     def apply_mask_filter(self, mask):
         """ Applies a filter by given mask on possible cells. """
@@ -82,7 +84,7 @@ class Node:
         if self.__has_value:
             self.__cells_stack.pop()
         self.__cells_stack.append(self.__possible_cells)
-        self.__possible_cells = value
+        self.__possible_cells = [value]
         self.__has_value = True
 
     def get_a_list_of_neighbours(self):
