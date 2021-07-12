@@ -9,7 +9,6 @@ from constants import Consts
 class Display:
 
     def __init__(self, map_):
-        map_ = ['1100', '1110', '0011', '1111']
         self.__map = map_
         w = self.__w = len(map_[0])
         h = self.__h = len(map_)

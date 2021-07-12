@@ -1,6 +1,6 @@
 class Consts:
 
-    MAP_FILE = './maps/test.txt'
+    MAP_FILE = './maps/puzzle1.txt'
 
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
