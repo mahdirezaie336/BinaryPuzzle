@@ -51,8 +51,8 @@ class Display:
                 y = init_y + j * cell_size
                 color = Consts.CELL_COLOR
                 # Drawing Rectangles
-                pygame.draw.rect(self.screen, color, (x, y, cell_size, cell_size), 0)
-                pygame.draw.rect(self.screen, (0, 0, 0), (x, y, cell_size, cell_size), 1)
+                pygame.draw.rect(self.screen, color, (x, y, cell_size - 2, cell_size - 2), 0)
+                # pygame.draw.rect(self.screen, (0, 0, 0), (x, y, cell_size - 2, cell_size - 2), 1)
 
     def begin_display(self):
 
