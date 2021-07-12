@@ -12,7 +12,7 @@ class Node:
         self.__possible_cells = []
         self.__cell_length = cell_length
         self.__cells_stack = []
-        self.__assigned_value = None
+        self.__has_value = False
 
         self.init_possible_cells()
 
@@ -76,10 +76,20 @@ class Node:
             self.__possible_cells.remove(cell)
 
     def has_value(self):
-        return self.__assigned_value is not None
+        return self.__has_value
 
     def set_value(self, value: Cell):
-        self.__assigned_value = value
+        if self.__has_value:
+            self.__cells_stack.pop()
+        self.__cells_stack.append(self.__possible_cells)
+        self.__possible_cells = value
+        self.__has_value = True
+
+    def get_a_list_of_neighbours(self):
+        res = []
+        for arc in self.__arcs:
+            res.append(arc.get_other_side(self))
+        return res
 
     def get_possible_cells(self):
         return self.__possible_cells

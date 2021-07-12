@@ -107,13 +107,22 @@ def read_map() -> (list[Node], list[Node]):
     return horizontal_nodes, vertical_nodes
 
 
-def forward_check(all_nodes, node: Node):
+def forward_check(node: Node):
     for arc in node.get_arcs():
         arc.make_me_consistent(node)
 
 
 def backtrack_search(all_nodes: list[Node]):
     """ Performs a backtrack search on list of nodes which is sorted. """
+    root = all_nodes.pop()
+    if len(root.get_possible_cells()) == 0:
+        raise Exception('Problem is unsolvable')
+    for cell in root.get_possible_cells():
+        root.set_value(cell)
+        forward_check(root)
+        heapq.heapify(all_nodes)
+        res = backtrack_search(all_nodes.copy())
+
 
     pass
 
