@@ -43,7 +43,7 @@ class Node:
         """ Applies a binary constraint to all possible values.
             Makes the node arc consistent with respect to all possible nodes. """
 
-        cells = self.get_possible_cells()
+        cells = self.get_possible_cells().copy()
         to_remove = []
         for cell in cells:
             found = False
@@ -56,7 +56,12 @@ class Node:
 
         for cell in to_remove:
             cells.remove(cell)
-        pass
+
+        self.__cells_stack.append(self.__possible_cells)
+        self.__possible_cells = cells
+
+    def undo_applying_binary_constraint(self):
+        self.__possible_cells = self.__cells_stack.pop()
 
     def apply_mask_filter(self, mask):
         """ Applies a filter by given mask on possible cells. """
