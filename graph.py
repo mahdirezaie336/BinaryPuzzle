@@ -74,6 +74,18 @@ class Node:
     def __repr__(self):
         return str(self.__id)
 
+    def __lt__(self, other):
+        return len(self.__possible_cells) < len(other.__possible_cells)
+
+    def __le__(self, other):
+        return len(self.__possible_cells) <= len(other.__possible_cells)
+
+    def __gt__(self, other):
+        return len(self.__possible_cells) > len(other.__possible_cells)
+
+    def __ge__(self, other):
+        return len(self.__possible_cells) >= len(other.__possible_cells)
+
 
 class Arc:
 
