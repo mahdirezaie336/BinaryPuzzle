@@ -147,7 +147,9 @@ def main():
         node.apply_unary_constraint(more_ttd_constraint)
 
     heapq.heapify(all_nodes)
-    backtrack_search(all_nodes)
+    res = backtrack_search(all_nodes.copy())
+    if res == -1:
+        print('The problem has no answer')
     pass
 
 
