@@ -4,6 +4,8 @@ from constraint import UnaryConstraint, BinaryConstraint
 from graph import Node, Arc
 import heapq
 
+from screenmanager import Display
+
 
 def two_diff(cell1, cell2, node1, node2) -> bool:
     """ A constraint function which checks if two cells are equal. """
@@ -150,13 +152,18 @@ def main():
         node.apply_unary_constraint(same_nod_constraint)
         node.apply_unary_constraint(more_ttd_constraint)
 
+    # Running solution
     heapq.heapify(all_nodes)
     result_iteration = []
     res_code = backtrack_search(all_nodes.copy(), result_iteration)
+
+    # Showing result
+    display = Display(map_object)
+    display.begin_display()
     if res_code == -1:
         print('The problem has no answer')
-    for i in result_iteration:
-        print(i)
+    for i in h:
+        print(i.get_possible_cells())
     pass
 
 
