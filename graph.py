@@ -12,6 +12,7 @@ class Node:
         self.__possible_cells = []
         self.__cell_length = cell_length
         self.__cells_stack = []
+        self.__assigned_value = None
 
         self.init_possible_cells()
 
@@ -42,7 +43,6 @@ class Node:
     def apply_binary_constraint(self, cons, other_node):
         """ Applies a binary constraint to all possible values.
             Makes the node arc consistent with respect to all possible nodes. """
-
         cells = self.get_possible_cells().copy()
         to_remove = []
         for cell in cells:
@@ -74,6 +74,12 @@ class Node:
 
         for cell in to_delete:
             self.__possible_cells.remove(cell)
+
+    def has_value(self):
+        return self.__assigned_value is not None
+
+    def set_value(self, value: Cell):
+        self.__assigned_value = value
 
     def get_possible_cells(self):
         return self.__possible_cells
