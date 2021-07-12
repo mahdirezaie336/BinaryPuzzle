@@ -48,6 +48,7 @@ def read_map() -> (list[Node], list[Node]):
         Applies the map limitation on each node.
         :returns List of all vertical nodes and horizontal nodes
         """
+    map_object = []
     # Opening map file
     with open(Consts.MAP_FILE, 'r') as map_file:
         w, h = (int(i) for i in map_file.readline().split())
@@ -68,6 +69,7 @@ def read_map() -> (list[Node], list[Node]):
         # Create horizontal nodes
         horizontal_nodes = []
         for i, mask in enumerate(rows):
+            map_object.append(mask)
             node = Node(('h', i), len(mask))
             node.apply_mask_filter(mask)
             horizontal_nodes.append(node)
@@ -105,7 +107,7 @@ def read_map() -> (list[Node], list[Node]):
                 arc = Arc(h_node, v_node, same_rac_constraint)
                 h_node.connect_to_another_node(v_node, arc)
 
-    return horizontal_nodes, vertical_nodes
+    return horizontal_nodes, vertical_nodes, map_object
 
 
 def forward_check(node: Node):
@@ -135,7 +137,7 @@ def backtrack_search(all_nodes: list[Node], res_iter: list[tuple[Node, Cell]]):
 
 
 def main():
-    h, v = read_map()
+    h, v, map_object = read_map()
 
     all_nodes = []
     all_nodes.extend(h)
