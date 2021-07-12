@@ -4,7 +4,7 @@ from graph import Node, Arc
 import heapq
 
 
-def two_diff(cell1, cell2, _) -> bool:
+def two_diff(cell1, cell2, node1, node2) -> bool:
     """ A constraint function which checks if two cells are equal. """
     return cell1 != cell2
 
@@ -126,6 +126,9 @@ def backtrack_search(all_nodes: list[Node]):
         res = backtrack_search(all_nodes.copy())
         if res == 0:
             return 0
+        root.undo_applying_binary_constraint()
+        for node in root.get_a_list_of_neighbours():
+            node.undo_applying_binary_constraint()
     return -1
 
 
