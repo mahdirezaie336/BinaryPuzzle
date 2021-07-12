@@ -1,3 +1,4 @@
+from cell import Cell
 from constants import Consts
 from constraint import UnaryConstraint, BinaryConstraint
 from graph import Node, Arc
@@ -112,7 +113,7 @@ def forward_check(node: Node):
         arc.make_me_consistent(node)
 
 
-def backtrack_search(all_nodes: list[Node]):
+def backtrack_search(all_nodes: list[Node], res_iter: list[tuple[Node, Cell]]):
     """ Performs a backtrack search on list of nodes which is sorted. """
     if len(all_nodes) <= 0:
         return 0
@@ -123,8 +124,9 @@ def backtrack_search(all_nodes: list[Node]):
         root.set_value(cell)
         forward_check(root)
         heapq.heapify(all_nodes)
-        res = backtrack_search(all_nodes.copy())
+        res = backtrack_search(all_nodes.copy(), res_iter)
         if res == 0:
+            res_iter.append((root, cell))
             return 0
         root.undo_applying_binary_constraint()
         for node in root.get_a_list_of_neighbours():
@@ -147,9 +149,12 @@ def main():
         node.apply_unary_constraint(more_ttd_constraint)
 
     heapq.heapify(all_nodes)
-    res = backtrack_search(all_nodes.copy())
-    if res == -1:
+    result_iteration = []
+    res_code = backtrack_search(all_nodes.copy(), result_iteration)
+    if res_code == -1:
         print('The problem has no answer')
+    for i in result_iteration:
+        print(i)
     pass
 
 
