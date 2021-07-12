@@ -33,6 +33,11 @@ class Display:
         self.rect_width = rect_width
         self.rect_height = rect_height
 
+        one_image = pygame.image.load(Consts.ONE_IMAGE)
+        zero_image = pygame.image.load(Consts.ZERO_IMAGE)
+        self.images = {'1': pygame.transform.scale(one_image, (cell_size, cell_size)),
+                       '0': pygame.transform.scale(zero_image, (cell_size, cell_size))}
+
         self.draw_cells()
         pygame.display.update()
 
@@ -52,7 +57,15 @@ class Display:
                 color = Consts.CELL_COLOR
                 # Drawing Rectangles
                 pygame.draw.rect(self.screen, color, (x, y, cell_size - 2, cell_size - 2), 0)
-                # pygame.draw.rect(self.screen, (0, 0, 0), (x, y, cell_size - 2, cell_size - 2), 1)
+                if self.__map[j][i] in ['1', '0']:
+                    self.draw_in_position(j, i, self.images[self.__map[j][i]])
+
+    def draw_in_position(self, y: int, x: int, image):
+        init_y = (Consts.SCREEN_HEIGHT - self.rect_height) / 2
+        init_x = (Consts.SCREEN_WIDTH - self.rect_width) / 2
+        pos_x = init_x + x * self.cell_size
+        pos_y = init_y + y * self.cell_size
+        self.screen.blit(image, (pos_x, pos_y))
 
     def begin_display(self):
 
