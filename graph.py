@@ -11,6 +11,7 @@ class Node:
         self.__id = identity
         self.__possible_cells = []
         self.__cell_length = cell_length
+        self.__cells_stack = []
 
         self.init_possible_cells()
 
@@ -38,10 +39,23 @@ class Node:
         for cell in to_remove:
             self.__possible_cells.remove(cell)
 
-    def apply_binary_constraint(self, const):
+    def apply_binary_constraint(self, cons, other_node):
         """ Applies a binary constraint to all possible values.
             Makes the node arc consistent with respect to all possible nodes. """
 
+        cells = self.get_possible_cells()
+        to_remove = []
+        for cell in cells:
+            found = False
+            for other_cell in other_node.get_possible_cells():
+                if cons.satisfies(cell, other_cell, self, other_node):
+                    found = True
+                    break
+            if not found:
+                to_remove.append(cell)
+
+        for cell in to_remove:
+            cells.remove(cell)
         pass
 
     def apply_mask_filter(self, mask):
@@ -59,6 +73,9 @@ class Node:
 
     def get_id(self):
         return self.__id
+
+    def get_arcs(self):
+        return self.__arcs
 
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -98,21 +115,7 @@ class Arc:
         """ Makes head or tail arc consistent with respect to the other. """
         if me_node != self.__head and me_node != self.__tail:
             return
-
-        other_node = self.get_other_side(me_node)
-        cells = me_node.get_possible_cells()
-        to_remove = []
-        for cell in cells:
-            found = False
-            for other_cell in other_node.get_possible_cells():
-                if self.__cons.satisfies(cell, other_cell, me_node, other_node):
-                    found = True
-                    break
-            if not found:
-                to_remove.append(cell)
-
-        for cell in to_remove:
-            cells.remove(cell)
+        self.get_other_side(me_node).apply_binary_constraint(self.__cons, me_node)
 
     def get_other_side(self, node):
         """ Returns the node on others side of arc. """

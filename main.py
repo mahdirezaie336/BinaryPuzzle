@@ -1,6 +1,7 @@
 from constants import Consts
 from constraint import UnaryConstraint, BinaryConstraint
 from graph import Node, Arc
+import heapq
 
 
 def two_diff(cell1, cell2, _) -> bool:
@@ -106,10 +107,33 @@ def read_map() -> (list[Node], list[Node]):
     return horizontal_nodes, vertical_nodes
 
 
-def main():
-    h, v = read_map()
+def forward_check(all_nodes, node: Node):
+    for arc in node.get_arcs():
+        arc.make_me_consistent(node)
+
+
+def backtrack_search(all_nodes: list[Node]):
+    """ Performs a backtrack search on list of nodes which is sorted. """
+
     pass
 
+
+def main():
+    h, v = read_map()
+
+    all_nodes = []
+    all_nodes.extend(h)
+    all_nodes.extend(v)
+
+    # Applying unary constraints
+    same_nod_constraint = UnaryConstraint(same_number_of_digits)
+    more_ttd_constraint = UnaryConstraint(more_than_two_digits)
+    for node in all_nodes:
+        node.apply_unary_constraint(same_nod_constraint)
+        node.apply_unary_constraint(more_ttd_constraint)
+
+    heapq.heapify(all_nodes)
+    pass
 
 
 main()
