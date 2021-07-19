@@ -3,7 +3,9 @@ import threading
 
 import pygame
 
+from cell import Cell
 from constants import Consts
+from graph import Node
 
 
 class Display:
@@ -65,6 +67,16 @@ class Display:
         pos_x = init_x + x * self.cell_size
         pos_y = init_y + y * self.cell_size
         self.screen.blit(image, (pos_x, pos_y))
+
+    def show_solution(self, solution_list: list[tuple[Node, Cell]]):
+        # Clearing screen
+        self.draw_cells()
+
+        # Putting items into screen
+        for item in solution_list:
+            node = item[0]
+            if node.get_id()[0] == 'h':
+                for j in len(item[1])
 
     def begin_display(self):
 

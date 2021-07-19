@@ -17,6 +17,9 @@ class Cell:
     def __repr__(self):
         return self.__value
 
+    def __len__(self):
+        return len(self.__value)
+
     def __getitem__(self, item):
         return self.__value[item]
 
