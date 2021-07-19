@@ -133,6 +133,7 @@ def backtrack_search(all_nodes: list[Node], res_iter: list[tuple[Node, Cell]]):
             res_iter.append((root, cell))
             return 0
         root.undo_applying_binary_constraint()
+        heapq.heapify(all_nodes)
         for node in root.get_a_list_of_neighbours():
             node.undo_applying_binary_constraint()
     return -1
