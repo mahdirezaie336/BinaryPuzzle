@@ -8,6 +8,7 @@ class Consts:
     CELL_COLOR = '#ff5b3a'
     SCREEN_MARGIN_SIZE = 40
     FPS = 25
+    TIME_STEP = 1
 
     ONE_IMAGE = './images/1.png'
     ZERO_IMAGE = './images/0.png'

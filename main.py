@@ -156,11 +156,11 @@ def main():
     heapq.heapify(all_nodes)
     result_iteration = []
     res_code = backtrack_search(all_nodes.copy(), result_iteration)
-    print(result_iteration)
 
     # Showing result
     display = Display(map_object)
     display.begin_display()
+    display.show_solution(result_iteration)
     if res_code == -1:
         print('The problem has no answer')
     for i in h:

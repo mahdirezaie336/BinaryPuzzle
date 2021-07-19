@@ -1,5 +1,6 @@
 import sys
 import threading
+import time
 
 import pygame
 
@@ -68,15 +69,24 @@ class Display:
         pos_y = init_y + y * self.cell_size
         self.screen.blit(image, (pos_x, pos_y))
 
+    def draw_cell(self, h_or_v: str, index: int, cell: Cell):
+        if h_or_v == 'h':
+            for i in range(len(cell)):
+                self.draw_in_position(index, i, self.images[str(cell[i])])
+        elif h_or_v == 'v':
+            for i in range(len(cell)):
+                self.draw_in_position(i, index, self.images[str(cell[i])])
+
     def show_solution(self, solution_list: list[tuple[Node, Cell]]):
         # Clearing screen
         self.draw_cells()
 
         # Putting items into screen
         for item in solution_list:
-            node = item[0]
-            if node.get_id()[0] == 'h':
-                for j in len(item[1])
+            time.sleep(Consts.TIME_STEP)
+            cell = item[1]
+            node_id = item[0].get_id()
+            self.draw_cell(node_id[0], node_id[1], cell)
 
     def begin_display(self):
 
