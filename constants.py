@@ -7,7 +7,7 @@ class Consts:
     BACKGROUND_COLOR = '#545450'
     CELL_COLOR = '#c4a040'
     SOLID_COLOR = '#584b1f'
-    SOFT_COLOR = '#127a74'
+    SOFT_COLOR = '#2c6628'
     SCREEN_MARGIN_SIZE = 40
     FPS = 25
     TIME_STEP = 1
