@@ -35,10 +35,18 @@ class Display:
         self.rect_width = rect_width
         self.rect_height = rect_height
 
-        one_image = pygame.image.load(Consts.ONE_IMAGE)
-        zero_image = pygame.image.load(Consts.ZERO_IMAGE)
-        self.images = {'1': pygame.transform.scale(one_image, (cell_size, cell_size)),
-                       '0': pygame.transform.scale(zero_image, (cell_size, cell_size))}
+        one_image = pygame.image.load(Consts.ONE_IMAGE).convert_alpha()
+        one_image = pygame.transform.scale(one_image, (cell_size, cell_size))
+        one_image = Display.colorize(one_image, Consts.SOLID_COLOR)
+        one_image_s = Display.colorize(one_image, Consts.SOFT_COLOR)
+        zero_image = pygame.image.load(Consts.ZERO_IMAGE).convert_alpha()
+        zero_image = pygame.transform.scale(zero_image, (cell_size, cell_size))
+        zero_image = Display.colorize(zero_image, Consts.SOLID_COLOR)
+        zero_image_s = Display.colorize(zero_image, Consts.SOFT_COLOR)
+        self.images = {'1': one_image,
+                       '0': zero_image,
+                       '1S': one_image_s,
+                       '0S': zero_image_s}
 
         self.draw_cells()
         pygame.display.update()
@@ -72,10 +80,10 @@ class Display:
     def draw_cell(self, h_or_v: str, index: int, cell: Cell):
         if h_or_v == 'h':
             for i in range(len(cell)):
-                self.draw_in_position(index, i, self.images[str(cell[i])])
+                self.draw_in_position(index, i, self.images[str(cell[i]) + 'S'])
         elif h_or_v == 'v':
             for i in range(len(cell)):
-                self.draw_in_position(i, index, self.images[str(cell[i])])
+                self.draw_in_position(i, index, self.images[str(cell[i]) + 'S'])
 
     def show_solution(self, solution_list: list[tuple[Node, Cell]]):
         # Clearing screen
@@ -87,6 +95,24 @@ class Display:
             cell = item[1]
             node_id = item[0].get_id()
             self.draw_cell(node_id[0], node_id[1], cell)
+
+    @staticmethod
+    def colorize(image, new_color):
+        """
+        Create a "colorized" copy of a surface (replaces RGB values with the given color, preserving the per-pixel alphas of
+        original).
+        :param image: Surface to create a colorized copy of
+        :param new_color: RGB color to use (original alpha values are preserved)
+        :return: New colorized Surface instance
+        """
+        image = image.copy()
+
+        # zero out RGB values
+        image.fill((0, 0, 0, 255), None, pygame.BLEND_RGBA_MULT)
+        # add in new RGB values
+        image.fill(new_color + '00', None, pygame.BLEND_RGBA_ADD)
+
+        return image
 
     def begin_display(self):
 
