@@ -1,13 +1,13 @@
 class Consts:
 
-    MAP_FILE = './maps/puzzle1.txt'
+    MAP_FILE = './maps/puzzle3.txt'
 
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
     BACKGROUND_COLOR = '#545450'
     CELL_COLOR = '#c4a040'
     SOLID_COLOR = '#584b1f'
-    SOFT_COLOR = '#2c6628'
+    SOFT_COLOR = '#eeeeee'
     SCREEN_MARGIN_SIZE = 40
     FPS = 25
     TIME_STEP = 1
