@@ -10,7 +10,7 @@ satisfied:
 
 3- There must not be more than 2 consecutive 1s and 0s in a column or row
 
-The solution uses `Constraint Satisfaction Problem` to solve the game.
+The solution uses `Constraint Satisfaction Problem` algorithms to solve the game.
 
 Here is an example of game:
 
